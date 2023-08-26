@@ -6,7 +6,14 @@
 
 [node name="Player" parent="." instance=ExtResource("1_demm8")]
 position = Vector2(408, 192)
-acceleration = 14.18
-deceleration = 4.14
-max_speed = 280.515
+controllable = true
+acceleration = 23.505
+deceleration = 4.395
+max_speed = 304.205
 rotation_speed = 183.205
+
+[node name="Opp" parent="." instance=ExtResource("1_demm8")]
+position = Vector2(192, 280)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_demm8")]
+position = Vector2(712, 264)

@@ -13,8 +13,12 @@ texture = ExtResource("1_d4i8n")
 [node name="GunPoint" type="Marker2D" parent="."]
 position = Vector2(0, 24)
 
-[node name="CharacterShape" type="CollisionPolygon2D" parent="."]
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
 rotation = -3.14159
 polygon = PackedVector2Array(24, 16, 16, 8, 0, -24, -16, 8, -24, 16)
 
-[node name="GunTimer" type="Timer" parent="."]
+[node name="CharacterShape" type="CollisionPolygon2D" parent="."]
+rotation = -3.14159
+polygon = PackedVector2Array(24, 16, 16, 8, 0, -24, -16, 8, -24, 16)
