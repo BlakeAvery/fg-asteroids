@@ -7,14 +7,22 @@
 script = ExtResource("1_q40yo")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-rotation = 3.14159
 texture = ExtResource("1_d4i8n")
 
 [node name="GunPoint" type="Marker2D" parent="."]
-position = Vector2(0, 24)
-
-[node name="CharacterShape" type="CollisionPolygon2D" parent="."]
-rotation = -3.14159
-polygon = PackedVector2Array(24, 16, 16, 8, 0, -24, -16, 8, -24, 16)
+position = Vector2(0, -20)
 
 [node name="GunTimer" type="Timer" parent="."]
+wait_time = 0.31
+
+[node name="AIAliveTimer" type="Timer" parent="."]
+wait_time = 5.09
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(24, 16, 24, 16, 16, 8, 0, -16, -16, 8, -24, 16)
+
+[node name="AIShootTimer" type="Timer" parent="."]
+wait_time = 1.59
+
+[connection signal="timeout" from="AIAliveTimer" to="." method="die"]
+[connection signal="timeout" from="AIShootTimer" to="." method="_on_ai_shoot_timer_timeout"]

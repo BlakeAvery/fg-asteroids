@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsjlmkovh3mjn"]
+
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_2cg8e"]
+[ext_resource type="PackedScene" uid="uid://cm54of02ywoai" path="res://scenes/ship.tscn" id="1_demm8"]
+
+[node name="Game" type="Node2D"]
+script = ExtResource("1_2cg8e")
+
+[node name="Player" parent="." instance=ExtResource("1_demm8")]
+position = Vector2(408, 192)
+controllable = true
+acceleration = 23.505
+deceleration = 4.395
+max_speed = 304.205
+rotation_speed = 183.205
+
+[node name="Opp" parent="." instance=ExtResource("1_demm8")]
+position = Vector2(192, 280)
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("1_demm8")]
+position = Vector2(712, 264)
+
+[connection signal="shoot" from="Player" to="." method="_on_ship_shoot"]

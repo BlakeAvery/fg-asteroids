@@ -1,19 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://dsjlmkovh3mjn"]
+[gd_scene load_steps=5 format=3 uid="uid://dsjlmkovh3mjn"]
 
+[ext_resource type="Script" path="res://scripts/game.gd" id="1_2cg8e"]
 [ext_resource type="PackedScene" uid="uid://cm54of02ywoai" path="res://scenes/ship.tscn" id="1_demm8"]
+[ext_resource type="PackedScene" uid="uid://crm38itkjnuba" path="res://scenes/ui.tscn" id="3_ad3we"]
+
+[sub_resource type="Curve2D" id="Curve2D_62ydg"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 808, 440, 0, 0, 0, 0, 808, 192, 0, 0, 0, 0, 760, 48, 0, 0, 0, 0, 624, 32, 0, 0, 0, 0, 216, 32, 0, 0, 0, 0, 96, 64, 0, 0, 0, 0, 72, 184, 0, 0, 0, 0, 72, 392, 0, 0, 0, 0, 88, 448, 0, 0, 0, 0, 296, 448, 0, 0, 0, 0, 744, 416, 0, 0, 0, 0, 808, 440)
+}
+point_count = 12
 
 [node name="Game" type="Node2D"]
+script = ExtResource("1_2cg8e")
 
 [node name="Player" parent="." instance=ExtResource("1_demm8")]
+visible = false
 position = Vector2(408, 192)
 controllable = true
-acceleration = 23.505
-deceleration = 4.395
-max_speed = 304.205
-rotation_speed = 183.205
+acceleration = 27.09
+deceleration = 1.885
+max_speed = 334.11
+rotation_speed = 250.795
 
-[node name="Opp" parent="." instance=ExtResource("1_demm8")]
-position = Vector2(192, 280)
+[node name="ShipSpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_62ydg")
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_demm8")]
-position = Vector2(712, 264)
+[node name="ShipSpawnPoint" type="PathFollow2D" parent="ShipSpawnPath"]
+position = Vector2(808, 440)
+rotation = -1.5708
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 4.0
+
+[node name="UI" parent="." instance=ExtResource("3_ad3we")]
+
+[connection signal="death" from="Player" to="." method="_on_player_death"]
+[connection signal="shoot" from="Player" to="." method="_on_ship_shoot"]
+[connection signal="start_game" from="UI" to="." method="_on_ui_start"]
