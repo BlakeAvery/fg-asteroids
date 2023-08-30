@@ -11,7 +11,7 @@ signal death
 
 var laser = preload("res://scenes/bullet.tscn")
 var shoot_cooldown: bool = false
-var alive: bool = true
+var alive: bool = false
 
 func die():
 	if controllable:
@@ -85,7 +85,7 @@ func _physics_process(delta):
 			if input_vector.y == 0:
 				velocity = velocity.move_toward(Vector2.ZERO, deceleration)
 	move_and_slide()
-	# Now wrap this nigga around
+	# Screen wrap
 	var screen_size = get_viewport_rect().size
 	if global_position.y < 0:
 		global_position.y = screen_size.y

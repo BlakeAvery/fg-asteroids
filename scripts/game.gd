@@ -4,11 +4,10 @@ var laser = preload("res://scenes/bullet.tscn")
 var ship = preload("res://scenes/ship.tscn")
 
 var frame_timer: int = 0
-@export var ship_spawn_interval = 2 # Change this to modify how often enemy ships spawn. In seconds
 var game_active: bool = true # This will later be controlled by UI. Go away
 enum ui_states {BASE_TITLE, IN_GAME, RESPAWNING, GAME_OVER}
 
-@export var lives: int = 3
+@export var lives: int = 6
 var score: int = 0
 var high_score: int = 0
 
@@ -41,11 +40,7 @@ func _process(delta):
 	pass
 
 func _physics_process(delta):
-	frame_timer += 1
-	# Its messed up, right? I just wanted to see how this would perform really
-	if frame_timer / Engine.physics_ticks_per_second == ship_spawn_interval:
-		spawn_ship()
-		frame_timer = 0
+	pass
 	
 
 func _on_ship_shoot(laser):
@@ -74,5 +69,7 @@ func _on_ui_start():
 	$UI.update_score(score)
 	$UI.update_lives(lives)
 	$UI.change_state(ui_states.IN_GAME)
-	
+	$EnemyShipSpawnTimer.start()
+	$Player.show()
+	$Player.alive = true
 	
