@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://dsjlmkovh3mjn"]
+[gd_scene load_steps=6 format=3 uid="uid://dsjlmkovh3mjn"]
 
 [ext_resource type="Script" path="res://scripts/game.gd" id="1_2cg8e"]
 [ext_resource type="PackedScene" uid="uid://cm54of02ywoai" path="res://scenes/ship.tscn" id="1_demm8"]
@@ -9,6 +9,12 @@ _data = {
 "points": PackedVector2Array(0, 0, 0, 0, 808, 440, 0, 0, 0, 0, 808, 192, 0, 0, 0, 0, 760, 48, 0, 0, 0, 0, 624, 32, 0, 0, 0, 0, 216, 32, 0, 0, 0, 0, 96, 64, 0, 0, 0, 0, 72, 184, 0, 0, 0, 0, 72, 392, 0, 0, 0, 0, 88, 448, 0, 0, 0, 0, 296, 448, 0, 0, 0, 0, 744, 416, 0, 0, 0, 0, 808, 440)
 }
 point_count = 12
+
+[sub_resource type="Curve2D" id="Curve2D_7ofd1"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 864, -16, 0, 0, 0, 0, 776, -16, 0, 0, 0, 0, 408, -40, 0, 0, 0, 0, 184, -32, 0, 0, 0, 0, -16, 8, 0, 0, 0, 0, -32, 184, 0, 0, 0, 0, -48, 360, 0, 0, 0, 0, -16, 496, 0, 0, 0, 0, 144, 512, 0, 0, 0, 0, 344, 512, 0, 0, 0, 0, 544, 512, 0, 0, 0, 0, 736, 496, 0, 0, 0, 0, 904, 464, 0, 0, 0, 0, 952, 272, 0, 0, 0, 0, 936, 176, 0, 0, 0, 0, 888, 88, 0, 0, 0, 0, 864, -16)
+}
+point_count = 17
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_2cg8e")
@@ -39,8 +45,17 @@ one_shot = true
 wait_time = 3.7
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
+wait_time = 3.101
+
+[node name="AsteroidSpawnPath" type="Path2D" parent="."]
+curve = SubResource("Curve2D_7ofd1")
+
+[node name="AsteroidSpawnPoint" type="PathFollow2D" parent="AsteroidSpawnPath"]
+position = Vector2(864, -16)
+rotation = 3.14159
 
 [connection signal="death" from="Player" to="." method="_on_player_death"]
 [connection signal="shoot" from="Player" to="." method="_on_ship_shoot"]
 [connection signal="start_game" from="UI" to="." method="_on_ui_start"]
 [connection signal="timeout" from="EnemyShipSpawnTimer" to="." method="spawn_ship"]
+[connection signal="timeout" from="AsteroidSpawnTimer" to="." method="spawn_asteroid"]

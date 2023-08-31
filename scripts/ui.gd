@@ -28,7 +28,8 @@ func change_state(state: int):
 func game_over():
 	$MessageTitleLabel.text = "Game over :("
 	$MessageTitleLabel.show()
-	$Button.show()
+	await get_tree().create_timer(3).timeout
+	change_state(states.BASE_TITLE)
 	
 
 func respawn_text():

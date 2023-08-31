@@ -25,9 +25,11 @@ func destroy(object: Node2D):
 			object.die()
 			add_score.emit(200)
 			queue_free()
-#	if object is Asteroid:
-#		pass
-#
+	if object is Asteroid:
+		object.damage()
+		add_score.emit(500)
+		queue_free()
+
 
 func spawn():
 	pass
@@ -45,3 +47,7 @@ func _process(delta):
 func _physics_process(delta):
 	var movement = Vector2(0.0, -1.0)
 	global_position += movement.rotated(rotation) * speed * delta
+
+
+func _on_fizzle_timer_timeout():
+	queue_free()

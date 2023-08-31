@@ -17,4 +17,9 @@ texture = ExtResource("1_mj8t6")
 position = Vector2(-0.435, 2.895)
 shape = SubResource("RectangleShape2D_ehfsn")
 
+[node name="FizzleTimer" type="Timer" parent="."]
+wait_time = 2.413
+autostart = true
+
 [connection signal="body_entered" from="." to="." method="destroy"]
+[connection signal="timeout" from="FizzleTimer" to="." method="_on_fizzle_timer_timeout"]

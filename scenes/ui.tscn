@@ -14,24 +14,25 @@ script = ExtResource("1_qhior")
 [node name="ScoreLabel" type="Label" parent="."]
 layout_mode = 0
 offset_left = 8.0
-offset_right = 99.0
+offset_right = 144.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 24
 text = "Score: 0"
 
 [node name="MessageTitleLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 320.0
+offset_left = 328.0
 offset_top = 152.0
-offset_right = 544.0
+offset_right = 552.0
 offset_bottom = 208.0
 theme_override_font_sizes/font_size = 36
 text = "Test King V3!"
+horizontal_alignment = 1
 
 [node name="HighScoreLabel" type="Label" parent="."]
 layout_mode = 0
-offset_left = 696.0
-offset_right = 846.0
+offset_left = 640.0
+offset_right = 854.0
 offset_bottom = 37.0
 theme_override_font_sizes/font_size = 24
 text = "High Score: 0"

@@ -1,8 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://c05qkjmnqlc7n"]
+[gd_scene load_steps=3 format=3 uid="uid://cjnf2xw5itmlh"]
 
+[ext_resource type="Script" path="res://scripts/asteroid.gd" id="1_0w8hv"]
 [ext_resource type="Texture2D" uid="uid://bu4xpqa2d0n0g" path="res://img/asteroid_big.png" id="1_wgl2q"]
 
-[node name="Asteroid" type="RigidBody2D"]
+[node name="Asteroid" type="CharacterBody2D"]
+script = ExtResource("1_0w8hv")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_wgl2q")
