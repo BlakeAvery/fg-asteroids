@@ -7,6 +7,7 @@ var asteroid = preload("res://scenes/asteroid.tscn")
 var frame_timer: int = 0
 var game_active: bool = false # This will later be controlled by UI. Go away
 enum ui_states {BASE_TITLE, IN_GAME, RESPAWNING, GAME_OVER}
+enum rock_states {SMALL, MID, BIG}
 
 @export var max_lives: int = 4
 var lives: int = max_lives
@@ -26,6 +27,7 @@ func spawn_asteroid():
 	$AsteroidSpawnPath/AsteroidSpawnPoint.progress_ratio = randf()
 	a.position = $AsteroidSpawnPath/AsteroidSpawnPoint.position
 	a.connect("explode", _on_asteroid_explode)
+	a.size = rock_states.BIG
 	add_child(a)
 	
 func game_over():
@@ -81,10 +83,33 @@ func _on_player_death():
 	
 
 func _on_asteroid_explode(rock: Asteroid):
-	# First take down the position and rotation of the dying asteroid.
-	# Then kill the dying asteroid, spawn two new at asteroid position
-	# Unless at smallest size. Then just kill the asteroid
-	pass
+	# First check size of asteroid. If already small kill it.
+	# If its not too small we can make a new one. Take down position
+	# data, spawn two new ones that are smaller, and send them flying
+	# in different directions. Make sure to kill the original rock
+	match rock.size:
+#		rock_states.SMALL:
+#			rock.kaboom()
+		rock_states.MID, rock_states.BIG:
+			var spawn_pos = rock.position
+			var spawn_dir = rock.rotation
+			var prev_size = rock.size
+			rock.kaboom()
+			var one_rock = asteroid.instantiate()
+			var two_rock = asteroid.instantiate()
+			one_rock.global_position = spawn_pos
+			two_rock.global_position = spawn_pos
+			one_rock.rotation = spawn_dir - .1
+			two_rock.rotation = spawn_dir + .1
+			match prev_size:
+				rock_states.BIG:
+					one_rock.size = rock_states.MID
+					two_rock.size = rock_states.MID
+				rock_states.MID:
+					one_rock.size = rock_states.SMALL
+					two_rock.size = rock_states.SMALL
+			add_child(one_rock)
+			add_child(two_rock)
 
 
 func _on_ui_start():

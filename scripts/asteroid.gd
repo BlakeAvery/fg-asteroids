@@ -2,14 +2,36 @@
 class_name Asteroid extends CharacterBody2D
 
 signal explode(asteroid: Asteroid)
+enum sizes {SMALL, MID, BIG}
 @export var speed: float = 250.0
+var size: int
+var big = preload("res://scenes/asteroid_large_shape.tscn")
+var mid = preload("res://scenes/asteroid_mid_shape.tscn")
+var lil = preload("res://scenes/asteroid_small_shape.tscn")
 
 func damage():
 	explode.emit(self)
+
+func kaboom(): #They should introduce the private keyword in GDScript before I start using C# :)
 	queue_free()
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	match size:
+		sizes.SMALL:
+			$Sprite2D.texture = preload("res://img/asteroid_small.png")
+			var polygon = lil.instantiate()
+			call_deferred("add_child", polygon)
+		sizes.MID:
+			$Sprite2D.texture = preload("res://img/asteroid_mid.png")
+			var polygon = mid.instantiate()
+			call_deferred("add_child", polygon)
+		sizes.BIG:
+			$Sprite2D.texture = preload("res://img/asteroid_big.png")
+			var polygon = big.instantiate()
+			call_deferred("add_child", polygon)
+		_:
+			assert(false)
 	rotation = deg_to_rad(randf_range(0.0, 360.0))
 
 
@@ -24,6 +46,11 @@ func _physics_process(delta):
 			if object is Ship:
 				object.die()
 				damage()
+			if object is Asteroid:
+				object.velocity = object.velocity * -1
+				object.rotation = object.rotation * -1
+				velocity = velocity * -1
+				rotation = rotation * -1
 			
 	var movement = Vector2(randf(), randf())
 	velocity += movement.rotated(rotation) * 5

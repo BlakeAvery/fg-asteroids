@@ -45,7 +45,7 @@ one_shot = true
 wait_time = 3.7
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
-wait_time = 3.101
+wait_time = 5.818
 
 [node name="AsteroidSpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7ofd1")
