@@ -88,8 +88,8 @@ func _on_asteroid_explode(rock: Asteroid):
 	# data, spawn two new ones that are smaller, and send them flying
 	# in different directions. Make sure to kill the original rock
 	match rock.size:
-#		rock_states.SMALL:
-#			rock.kaboom()
+		rock_states.SMALL:
+			rock.kaboom()
 		rock_states.MID, rock_states.BIG:
 			var spawn_pos = rock.position
 			var spawn_dir = rock.rotation
@@ -108,6 +108,8 @@ func _on_asteroid_explode(rock: Asteroid):
 				rock_states.MID:
 					one_rock.size = rock_states.SMALL
 					two_rock.size = rock_states.SMALL
+			one_rock.connect("explode", _on_asteroid_explode)
+			two_rock.connect("explode", _on_asteroid_explode)
 			add_child(one_rock)
 			add_child(two_rock)
 
