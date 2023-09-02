@@ -7,6 +7,8 @@ var life_icon = preload("res://scenes/life_ui_element.tscn")
 enum states {BASE_TITLE, IN_GAME, RESPAWNING, GAME_OVER}
 @export var current_state: int = 0
 
+var game_constant = GameConstants.new()
+
 func change_state(state: int):
 	if state > states.GAME_OVER:
 		assert(false)
@@ -33,7 +35,7 @@ func game_over():
 	
 
 func respawn_text():
-	$MessageTitleLabel.text = "You're back in a sec..."
+	$MessageTitleLabel.text = "Respawn Pending."
 	$MessageTitleLabel.show()
 	await get_tree().create_timer(4).timeout
 	$MessageTitleLabel.text = ""
@@ -41,11 +43,14 @@ func respawn_text():
 	
 
 func reset_game():
-	$MessageTitleLabel.text = "Test King V3!"
+	$MessageTitleLabel.text = game_constant.title_name
 	$MessageTitleLabel.show()
+	$VersionLabel.text = "Version " + game_constant.title_version
+	$VersionLabel.show()
 	$Button.show()
 
 func game_start():
+	$VersionLabel.hide()
 	$Button.hide()
 	$MessageTitleLabel.text = "Ready?"
 	await get_tree().create_timer(3).timeout

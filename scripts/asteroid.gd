@@ -8,6 +8,7 @@ var size: int
 var big = preload("res://scenes/asteroid_large_shape.tscn")
 var mid = preload("res://scenes/asteroid_mid_shape.tscn")
 var lil = preload("res://scenes/asteroid_small_shape.tscn")
+var exist_timer: Timer = Timer.new()
 
 func damage():
 	explode.emit(self)
@@ -17,19 +18,26 @@ func kaboom(): #They should introduce the private keyword in GDScript before I s
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	exist_timer.wait_time = 20.0
+	exist_timer.connect("timeout", kaboom)
+	add_child(exist_timer)
+	exist_timer.start()
 	match size:
 		sizes.SMALL:
 			$Sprite2D.texture = preload("res://img/asteroid_small.png")
 			var polygon = lil.instantiate()
 			call_deferred("add_child", polygon)
+			speed = 300.0
 		sizes.MID:
 			$Sprite2D.texture = preload("res://img/asteroid_mid.png")
 			var polygon = mid.instantiate()
 			call_deferred("add_child", polygon)
+			speed = 250.0
 		sizes.BIG:
 			$Sprite2D.texture = preload("res://img/asteroid_big.png")
 			var polygon = big.instantiate()
 			call_deferred("add_child", polygon)
+			speed = 200.0
 		_:
 			assert(false)
 	rotation = deg_to_rad(randf_range(0.0, 360.0))

@@ -2,7 +2,7 @@
 class_name Bullet extends Area2D
 
 signal add_score(points: int)
-var color: Color = Color(255, 255, 255)
+var color: Color
 var speed: float = 600.0
 var is_player: bool
 
@@ -23,16 +23,19 @@ func destroy(object: Node2D):
 			queue_free()
 		elif !object.controllable and is_player:
 			object.die()
-			add_score.emit(200)
+			add_score.emit(300)
 			queue_free()
-	if object is Asteroid:
+	if object is Asteroid and is_player:
+		match object.size:
+			0:
+				add_score.emit(200)
+			1:
+				add_score.emit(150)
+			2:
+				add_score.emit(100)
 		object.damage()
-		add_score.emit(500)
 		queue_free()
 
-
-func spawn():
-	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

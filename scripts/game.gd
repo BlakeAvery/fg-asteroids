@@ -9,7 +9,7 @@ var game_active: bool = false # This will later be controlled by UI. Go away
 enum ui_states {BASE_TITLE, IN_GAME, RESPAWNING, GAME_OVER}
 enum rock_states {SMALL, MID, BIG}
 
-@export var max_lives: int = 4
+@export var max_lives: int = 5
 var lives: int = max_lives
 var score: int = 0
 var high_score: int = 0
@@ -60,7 +60,6 @@ func _physics_process(delta):
 	
 
 func _on_ship_shoot(laser):
-	print("Laser shot at " + str(laser))
 	laser.connect("add_score", update_score)
 	add_child(laser)
 	
@@ -72,7 +71,6 @@ func _on_player_death():
 	if lives > 0:
 		$RespawnTimer.start()
 		$UI.change_state(ui_states.RESPAWNING)
-#		lives = lives - 1 # Why doesn't -= work?
 		await $RespawnTimer.timeout
 		$Player.alive = true
 		$Player/CollisionPolygon2D.disabled = false
@@ -99,8 +97,8 @@ func _on_asteroid_explode(rock: Asteroid):
 			var two_rock = asteroid.instantiate()
 			one_rock.global_position = spawn_pos
 			two_rock.global_position = spawn_pos
-			one_rock.rotation = spawn_dir - .1
-			two_rock.rotation = spawn_dir + .1
+			one_rock.rotation = spawn_dir - .5
+			two_rock.rotation = spawn_dir + .5
 			match prev_size:
 				rock_states.BIG:
 					one_rock.size = rock_states.MID

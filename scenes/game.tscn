@@ -42,10 +42,10 @@ one_shot = true
 [node name="UI" parent="." instance=ExtResource("3_ad3we")]
 
 [node name="EnemyShipSpawnTimer" type="Timer" parent="."]
-wait_time = 3.7
+wait_time = 6.121
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
-wait_time = 5.818
+wait_time = 12.378
 
 [node name="AsteroidSpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7ofd1")
