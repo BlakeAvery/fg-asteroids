@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cg4rtldng18f2" path="res://img/bullet.png" id="1_mj8t6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ehfsn"]
-size = Vector2(7.05, 8)
+size = Vector2(7.05, 33.105)
 
 [node name="Bullet" type="Area2D"]
 script = ExtResource("1_6h2wx")
@@ -14,7 +14,7 @@ position = Vector2(0, 16)
 texture = ExtResource("1_mj8t6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-0.435, 2.895)
+position = Vector2(-0.435, 15.4475)
 shape = SubResource("RectangleShape2D_ehfsn")
 
 [node name="FizzleTimer" type="Timer" parent="."]

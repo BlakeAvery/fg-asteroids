@@ -27,7 +27,7 @@ func _ready():
 			$Sprite2D.texture = preload("res://img/asteroid_small.png")
 			var polygon = lil.instantiate()
 			call_deferred("add_child", polygon)
-			speed = 300.0
+			speed = 350.0
 		sizes.MID:
 			$Sprite2D.texture = preload("res://img/asteroid_mid.png")
 			var polygon = mid.instantiate()
@@ -37,15 +37,10 @@ func _ready():
 			$Sprite2D.texture = preload("res://img/asteroid_big.png")
 			var polygon = big.instantiate()
 			call_deferred("add_child", polygon)
-			speed = 200.0
+			speed = 210.0
 		_:
 			assert(false)
 	rotation = deg_to_rad(randf_range(0.0, 360.0))
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
 
 func _physics_process(delta):
 	var collision = get_last_slide_collision()

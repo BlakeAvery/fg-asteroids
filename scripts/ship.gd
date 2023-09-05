@@ -63,13 +63,8 @@ func _physics_process(delta):
 		if what_did_we_hit is Ship:
 			what_did_we_hit.die()
 			die()
-		#if what_did_we_hit is Asteroid:
-		#	die()
-#		if what_did_we_hit is Bullet: # Is this code redundant? It totally was 
-#			if !controllable:
-#				add_score.emit(100)
-#			die()
-#			what_did_we_hit.destroy()
+		if what_did_we_hit is Asteroid:
+			die()
 	# Collision block complete. This handles our movement input
 	if !controllable: # NPC condition
 		var attack_vector = Vector2(0.0, randf_range(-0.6, -1.0)) # This represents NPC moving
@@ -104,4 +99,10 @@ func _on_ai_shoot_timer_timeout():
 	l.global_position = $GunPoint.global_position
 	l.rotation = rotation + randf_range(-1.0, 1.0)
 	l.is_player = false
+	l.set_color($Sprite2D.modulate)
 	shoot.emit(l)
+
+
+func _on_invincible_timer_timeout():
+	$Sprite2D.modulate = Color($Sprite2D.modulate, 1.0)
+	$CollisionPolygon2D.set_deferred("disabled", false)

@@ -50,21 +50,12 @@ func update_score(points: int):
 func _ready():
 	pass
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass
-
-func _physics_process(delta):
-	pass
-	
-
 func _on_ship_shoot(laser):
 	laser.connect("add_score", update_score)
 	add_child(laser)
 	
 
-func _on_player_death():
+func _on_player_death(): # Player respawn code is in here. Needs to be refactored to Ship object
 	game_active = false
 	lives -= 1
 	$UI.update_lives(lives)
@@ -73,8 +64,9 @@ func _on_player_death():
 		$UI.change_state(ui_states.RESPAWNING)
 		await $RespawnTimer.timeout
 		$Player.alive = true
-		$Player/CollisionPolygon2D.disabled = false
 		$Player.show()
+		$Player/InvincibleTimer.start()
+		$Player/Sprite2D.modulate = Color($Player/Sprite2D.modulate, 0.5)
 		game_active = true
 	else:
 		game_over()

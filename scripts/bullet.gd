@@ -2,7 +2,6 @@
 class_name Bullet extends Area2D
 
 signal add_score(points: int)
-var color: Color
 var speed: float = 600.0
 var is_player: bool
 
@@ -36,6 +35,8 @@ func destroy(object: Node2D):
 		object.damage()
 		queue_free()
 
+func set_color(color: Color):
+	$Sprite2D.set_deferred("modulate", color)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
