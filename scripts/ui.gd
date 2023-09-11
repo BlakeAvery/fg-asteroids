@@ -6,6 +6,7 @@ var life_icon = preload("res://scenes/life_ui_element.tscn")
 
 enum states {BASE_TITLE, IN_GAME, RESPAWNING, GAME_OVER}
 @export var current_state: int = 0
+var respawn_time: float = 0.0
 
 var game_constant = GameConstants.new()
 
@@ -37,10 +38,10 @@ func game_over():
 func respawn_text():
 	$MessageTitleLabel.text = "Respawn Pending."
 	$MessageTitleLabel.show()
-	await get_tree().create_timer(4).timeout
+	await get_tree().create_timer(respawn_time).timeout
 	$MessageTitleLabel.text = ""
 	$MessageTitleLabel.hide()
-	
+	current_state = states.IN_GAME
 
 func reset_game():
 	$MessageTitleLabel.text = game_constant.title_name
@@ -63,11 +64,10 @@ func update_lives(lives: int):
 	for l in lives:
 		var icon = life_icon.instantiate()
 		$LivesContainer.add_child(icon)
-		
 
 func update_score(score: int):
 	$ScoreLabel.text = "Score: " + str(score)
-	
+
 func update_high_score(score: int):
 	$HighScoreLabel.text = "High Score: " + str(score)
 
@@ -75,11 +75,9 @@ func update_high_score(score: int):
 func _ready():
 	change_state(states.BASE_TITLE)
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	pass
-
 
 func _on_button_pressed():
 	start_game.emit()

@@ -21,5 +21,6 @@ shape = SubResource("RectangleShape2D_ehfsn")
 wait_time = 2.413
 autostart = true
 
+[connection signal="area_entered" from="." to="." method="destroy"]
 [connection signal="body_entered" from="." to="." method="destroy"]
 [connection signal="timeout" from="FizzleTimer" to="." method="_on_fizzle_timer_timeout"]

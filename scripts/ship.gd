@@ -24,7 +24,10 @@ func die():
 		death.emit()
 		alive = false
 		queue_free()
-	
+		
+
+func respawn(duration: int):
+	pass
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -63,7 +66,7 @@ func _physics_process(delta):
 		if what_did_we_hit is Ship:
 			what_did_we_hit.die()
 			die()
-		if what_did_we_hit is Asteroid:
+		if what_did_we_hit is NewAsteroid:
 			die()
 	# Collision block complete. This handles our movement input
 	if !controllable: # NPC condition

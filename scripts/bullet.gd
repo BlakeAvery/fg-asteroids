@@ -2,7 +2,7 @@
 class_name Bullet extends Area2D
 
 signal add_score(points: int)
-var speed: float = 600.0
+var speed: float = 800.0
 var is_player: bool
 
 #func _init(location: Vector2, direction: float, bullet_color: Color = color):
@@ -10,7 +10,7 @@ var is_player: bool
 #	rotation = direction
 #	position = location
 	
-func destroy(object: Node2D):
+func destroy(object):
 	# First off! Check for Ship or Asteroid!
 	if object is Ship:
 		if object.controllable and is_player:
@@ -24,7 +24,7 @@ func destroy(object: Node2D):
 			object.die()
 			add_score.emit(300)
 			queue_free()
-	if object is Asteroid and is_player:
+	if object is NewAsteroid and is_player:
 		match object.size:
 			0:
 				add_score.emit(200)
@@ -32,7 +32,6 @@ func destroy(object: Node2D):
 				add_score.emit(150)
 			2:
 				add_score.emit(100)
-		object.damage()
 		queue_free()
 
 func set_color(color: Color):

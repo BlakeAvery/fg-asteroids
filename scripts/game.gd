@@ -20,6 +20,8 @@ func spawn_ship():
 	$ShipSpawnPath/ShipSpawnPoint.progress_ratio = randf()
 	s.position = $ShipSpawnPath/ShipSpawnPoint.position
 	s.connect("shoot", _on_ship_shoot)
+	if $EnemyShipSpawnTimer.wait_time > 10.0:
+		$EnemyShipSpawnTimer.wait_time -= .5
 	add_child(s)
 	
 func spawn_asteroid():
@@ -48,7 +50,7 @@ func update_score(points: int):
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	$UI.respawn_time = $RespawnTimer.wait_time
 
 func _on_ship_shoot(laser):
 	laser.connect("add_score", update_score)
@@ -72,7 +74,7 @@ func _on_player_death(): # Player respawn code is in here. Needs to be refactore
 		game_over()
 	
 
-func _on_asteroid_explode(rock: Asteroid):
+func _on_asteroid_explode(rock: NewAsteroid):
 	# First check size of asteroid. If already small kill it.
 	# If its not too small we can make a new one. Take down position
 	# data, spawn two new ones that are smaller, and send them flying

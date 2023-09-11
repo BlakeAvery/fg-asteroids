@@ -36,16 +36,16 @@ position = Vector2(808, 440)
 rotation = -1.5708
 
 [node name="RespawnTimer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="UI" parent="." instance=ExtResource("3_ad3we")]
 
 [node name="EnemyShipSpawnTimer" type="Timer" parent="."]
-wait_time = 6.121
+wait_time = 31.423
 
 [node name="AsteroidSpawnTimer" type="Timer" parent="."]
-wait_time = 12.378
+wait_time = 8.486
 
 [node name="AsteroidSpawnPath" type="Path2D" parent="."]
 curve = SubResource("Curve2D_7ofd1")
